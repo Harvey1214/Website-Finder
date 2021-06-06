@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteFinder", "WebsiteFinder\WebsiteFinder.csproj", "{E1FAFF0C-1D97-43F0-ACC8-098F5FC2D0F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1FAFF0C-1D97-43F0-ACC8-098F5FC2D0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1FAFF0C-1D97-43F0-ACC8-098F5FC2D0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1FAFF0C-1D97-43F0-ACC8-098F5FC2D0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1FAFF0C-1D97-43F0-ACC8-098F5FC2D0F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2B922E9-6F40-498D-B7F6-D08C38F5A6EF}
+	EndGlobalSection
+EndGlobal
