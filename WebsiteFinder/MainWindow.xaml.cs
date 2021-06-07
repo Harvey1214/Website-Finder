@@ -32,6 +32,8 @@ namespace WebsiteFinder
 
         private async void startButton_Click(object sender, RoutedEventArgs e)
         {
+            websitesDataGrid.ItemsSource = null;
+
             if (keywordsTextBox.Text.Length == 0)
             {
                 MessageBox.Show("Please fill out keywords to search with", "Missing Keywords", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -42,10 +44,32 @@ namespace WebsiteFinder
             ActionsManager.MinDate = minDateTextBox.Text;
             ActionsManager.MaxDate = maxDateTextBox.Text;
 
+            ActionsManager.Pages = Convert.ToInt32(pagesNumericUpDown.Value);
+            if (ActionsManager.Pages == 0) ActionsManager.Pages = 1;
+
+            // progress
+            progressBar.Value = 15;
+            progressRing.IsActive = true;
+
             await Task.Run(() => ActionsManager.StartProcess());
             websitesDataGrid.ItemsSource = ActionsManager.Websites;
 
-            websitesDataGrid.ItemsSource = new ContactInfoFinder().FindEmails(ActionsManager.Websites);
+            // progress
+            progressBar.Value = 70;
+
+            LoadContactInfo();
+        }
+
+        private async void LoadContactInfo()
+        {
+            await Task.Run(() => new ContactInfoFinder().GetEmails(ActionsManager.Websites));
+
+            websitesDataGrid.ItemsSource = null;
+            websitesDataGrid.ItemsSource = ActionsManager.Websites;
+
+            // progress
+            progressBar.Value = 100;
+            progressRing.IsActive = false;
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

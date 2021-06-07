@@ -109,17 +109,28 @@ namespace WebsiteFinder
 
         private void RemoveDuplicateWebsites()
         {
-            List<Website> results = new();
+            List<string> links = new List<string>();
             foreach (Website website in Websites)
             {
-                if (results.Contains(website) == false)
+                bool duplicate = false;
+                foreach (string link in links)
                 {
-                    results.Add(website);
+                    if (website.Link == link)
+                    {
+                        duplicate = true;
+                        break;
+                    }
                 }
+
+                if (duplicate) continue;
+                links.Add(website.Link);
             }
 
-            Websites = results;
-            Websites.RemoveAll(o => o.Link.Length == 0);
+            Websites.Clear();
+            foreach (string link in links)
+            {
+                Websites.Add(new() { Link = link });
+            }
         }
 
         public void EndProcess()

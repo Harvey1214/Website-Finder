@@ -10,25 +10,69 @@ namespace WebsiteFinder
 {
     class ContactInfoFinder
     {
-        public List<Website> FindEmails(List<Website> websites)
+        public List<Website> GetEmails(List<Website> websites)
         {
             foreach (Website website in websites)
             {
-                string html;
-                using (WebClient client = new WebClient())
+                string html = "";
+                using (MyWebClient client = new())
                 {
-                    html = client.DownloadString(website.Link);
-                }
+                    try
+                    {
+                        html = client.DownloadString(website.Link);
+                        try { html += client.DownloadString($"{website.Link}/contact"); } catch { }
+                        try { html += client.DownloadString($"{website.Link}/support"); } catch { }
 
-                // fix the regular expression
-                MatchCollection matches = Regex.Matches(html, "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e -\x1f\x21\x23 -\x5b\x5d -\x7f]|\\[\x01-\x09\x0b\x0c\x0e -\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])");
-                foreach (Match match in matches)
-                {
-                    website.Emails.Add(match.Value);
+                        // finding a contact email using regex
+                        {
+                            MatchCollection matches = Regex.Matches(html, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+                            foreach (Match match in matches)
+                            {
+                                website.Emails.Add(match.Value);
+                            }
+
+                            website.Emails = RemoveDuplicates(website.Emails);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
 
             return websites;
+        }
+
+        private List<string> RemoveDuplicates(List<string> list)
+        {
+            List<string> located = new List<string>();
+
+            foreach (string text in list)
+            {
+                bool duplicate = false;
+                foreach (string locatedText in located)
+                {
+                    if (locatedText == text)
+                    {
+                        duplicate = true;
+                    }
+                }
+
+                if (duplicate == false && Regex.IsMatch(text, "\\.?((png)|(jpg)|(webp))|(svg)|(ico)") == false) located.Add(text);
+            }
+
+            return located;
+        }
+    }
+
+    class MyWebClient : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri uri)
+        {
+            WebRequest w = base.GetWebRequest(uri);
+            w.Timeout = (int)TimeSpan.FromSeconds(5).TotalMilliseconds;
+            return w;
         }
     }
 }

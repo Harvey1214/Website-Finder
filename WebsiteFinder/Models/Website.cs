@@ -19,6 +19,8 @@ namespace WebsiteFinder
                     emails += $"{email},";
                 }
 
+                if (emails.Length == 0) return "";
+
                 return emails.Substring(0, emails.Length - 1);
             }
         }
