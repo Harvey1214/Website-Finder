@@ -30,9 +30,22 @@ namespace WebsiteFinder
             InitializeComponent();
         }
 
-        private void startButton_Click(object sender, RoutedEventArgs e)
+        private async void startButton_Click(object sender, RoutedEventArgs e)
         {
-            ActionsManager.StartProcess();
+            if (keywordsTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Please fill out keywords to search with", "Missing Keywords", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            ActionsManager.KeyWords = keywordsTextBox.Text;
+            ActionsManager.MinDate = minDateTextBox.Text;
+            ActionsManager.MaxDate = maxDateTextBox.Text;
+
+            await Task.Run(() => ActionsManager.StartProcess());
+            websitesDataGrid.ItemsSource = ActionsManager.Websites;
+
+            websitesDataGrid.ItemsSource = new ContactInfoFinder().FindEmails(ActionsManager.Websites);
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

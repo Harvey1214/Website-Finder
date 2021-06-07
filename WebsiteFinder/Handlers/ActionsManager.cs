@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace WebsiteFinder
 {
@@ -16,7 +17,16 @@ namespace WebsiteFinder
         public string MinDate { get; set; } = "2000";
         public string MaxDate { get; set; } = "2005";
 
+        public List<Website> Websites { get; set; } = new List<Website>();
+
+        public int Pages { get; set; } = 4;
+
         public void StartProcess(bool maximized = true, bool headless = false)
+        {
+            ScrapeSearchResults(maximized, headless);
+        }
+
+        private void ScrapeSearchResults(bool maximized, bool headless)
         {
             bot.OpenChrome(maximized, headless);
 
@@ -61,7 +71,7 @@ namespace WebsiteFinder
                 bot.ClickElement(By.Id("hdtb-tls")); // "Tools" button
                 Thread.Sleep(250);
                 bot.ClickElement(By.XPath("//*[@class=\"hdtb-mn-hd\"]")); // "Any time" dropdown
-                
+
                 var timeDropdownItems = bot.driver.FindElements(By.XPath("//*[contains(@class, 'znKVS') and contains(@class, 'tnhqA')]")); // get all items from the time filter dropdown
                 timeDropdownItems.Last().Click(); // click "Custom range..." item in the dropdown
 
@@ -72,8 +82,44 @@ namespace WebsiteFinder
 
             // read URLs
             {
+                for (int i = 0; i < Pages; i++)
+                {
+                    string html = bot.GetElementInnerHTML(By.Id("center_col"));
+                    MatchCollection matches = Regex.Matches(html, @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b");
+                    foreach (Match match in matches)
+                    {
+                        Websites.Add(new() { Link = match.Value });
+                    }
 
+                    By nextPageButton = By.XPath("//*[contains(@style, 'display:block;margin-left:53px')]");
+                    bot.ScrollToElement(nextPageButton);
+                    Thread.Sleep(1000);
+                    bot.ClickElement(nextPageButton); // go to the next page of search results
+                    Thread.Sleep(1000);
+                }
+
+                RemoveDuplicateWebsites();
             }
+
+            // driver action ends
+            {
+                EndProcess();
+            }
+        }
+
+        private void RemoveDuplicateWebsites()
+        {
+            List<Website> results = new();
+            foreach (Website website in Websites)
+            {
+                if (results.Contains(website) == false)
+                {
+                    results.Add(website);
+                }
+            }
+
+            Websites = results;
+            Websites.RemoveAll(o => o.Link.Length == 0);
         }
 
         public void EndProcess()
