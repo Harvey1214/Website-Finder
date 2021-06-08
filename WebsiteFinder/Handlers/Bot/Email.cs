@@ -7,39 +7,36 @@ namespace WebsiteFinder
 {
     public class Email
     {
-        public string subject { get; set; }
-        public string body { get; set; }
-        public string fromAddress { get; set; }
-        public List<string> toAddresses { get; set; } = new List<string>();
-        public List<Attachment> attachments { get; set; } = new List<Attachment>();
+        public string Subject { get; set; }
+        public string Body { get; set; }
 
-        public void SendAlert()
+        public string FromAddress { get; set; }
+        public string Password { get; set; }
+
+        public List<string> ToAddresses { get; set; } = new List<string>();
+
+        public void Send()
         {
-            SmtpClient smtpClient = new SmtpClient("smtp-relay.sendinblue.com", 587);
-
-            smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = new System.Net.NetworkCredential("mikuhoblik@gmail.com", "ISFwVCkLjGZYyWX4");
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpClient.EnableSsl = true;
             MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress(FromAddress);
+            for (int i = 0; i < ToAddresses.Count; i++)
+                mail.To.Add(ToAddresses[i]);
+            mail.Subject = Subject;
+            mail.Body = Body;
 
-            mail.Subject = subject;
-            mail.Body = body;
-            
-            foreach (Attachment attachment in attachments)
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential(FromAddress, Password);
+            SmtpServer.EnableSsl = true;
+
+            try
             {
-                mail.Attachments.Add(attachment);
+                SmtpServer.Send(mail);
             }
-
-            //Setting From , To and CC
-            mail.From = new MailAddress(fromAddress);
-            
-            foreach (string toAddress in toAddresses)
+            catch
             {
-                mail.To.Add(toAddress);
+                
             }
-
-            smtpClient.Send(mail);
         }
     }
 }
