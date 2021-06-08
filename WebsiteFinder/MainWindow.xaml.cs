@@ -76,5 +76,41 @@ namespace WebsiteFinder
         {
             ActionsManager.EndProcess();
         }
+
+        private void sendEmailsButton_Click(object sender, RoutedEventArgs e)
+        {
+            string subject = subjectTextBox.Text;
+            string body = bodyTextBox.Text;
+
+            string fromAddress = emailTextBox.Text;
+            string password = passwordBox.Password;
+
+            if (fromAddress.Length == 0)
+            {
+                MessageBox.Show("Gmail account has to be specified", "Email Address Missing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (password.Length == 0)
+            {
+                MessageBox.Show("A password to the Gmail account has to be specified", "Password Missing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            foreach (Website website in ActionsManager.Websites)
+            {
+                if (website.Emails.Count == 0) continue;
+
+                Email email = new()
+                {
+                    Subject = subject,
+                    Body = body,
+                    FromAddress = fromAddress,
+                    Password = password,
+                    ToAddresses = website.Emails
+                };
+
+                email.Send();
+            }
+        }
     }
 }
