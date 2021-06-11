@@ -91,11 +91,18 @@ namespace WebsiteFinder
                         Websites.Add(new() { Link = match.Value });
                     }
 
-                    By nextPageButton = By.XPath("//*[contains(@style, 'display:block;margin-left:53px')]");
-                    bot.ScrollToElement(nextPageButton);
-                    Thread.Sleep(1000);
-                    bot.ClickElement(nextPageButton); // go to the next page of search results
-                    Thread.Sleep(1000);
+                    try
+                    {
+                        By nextPageButton = By.XPath("//*[contains(@style, 'display:block;margin-left:53px')]");
+                        bot.ScrollToElement(nextPageButton);
+                        Thread.Sleep(1000);
+                        bot.ClickElement(nextPageButton); // go to the next page of search results
+                        Thread.Sleep(1000);
+                    }
+                    catch
+                    {
+                        break; // no more pages of search results, so continue onto another process
+                    }
                 }
 
                 RemoveDuplicateWebsites();

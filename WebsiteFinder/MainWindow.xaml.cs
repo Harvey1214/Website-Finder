@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using MahApps;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
+using Microsoft.Win32;
 
 namespace WebsiteFinder
 {
@@ -115,6 +117,29 @@ namespace WebsiteFinder
                 };
 
                 email.Send();
+            }
+        }
+
+        private void exportToCSV_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> lines = new();
+
+            lines.Add("website link, contact email"); // header line
+
+            foreach (Website website in ActionsManager.Websites)
+            {
+                string line = $"{website.Link},{website.ConcatenatedEmails}";
+                lines.Append(line);
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog.Filter = "CSV file(*.csv)| *.csv | All Files(*.*) | *.* ";
+            saveFileDialog.Title = "Export Scraped Data";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllLines(saveFileDialog.FileName, lines.ToArray());
             }
         }
     }
