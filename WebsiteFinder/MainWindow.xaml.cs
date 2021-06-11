@@ -70,6 +70,11 @@ namespace WebsiteFinder
             // progress
             progressBar.Value = 100;
             progressRing.IsActive = false;
+
+            // open a resizable window with results
+            Global.Websites = ActionsManager.Websites;
+            ResultsWindow resultsWindow = new ResultsWindow();
+            resultsWindow.Show();
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

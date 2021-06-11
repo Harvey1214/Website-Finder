@@ -60,3 +60,5 @@ C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Debug\net5.0-windows
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Debug\net5.0-windows\Microsoft.Xaml.Behaviors.dll
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Debug\net5.0-windows\de\MahApps.Metro.resources.dll
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\App.baml
+C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\ResultsWindow.g.cs
+C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\ResultsWindow.baml
