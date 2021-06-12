@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,9 @@ namespace WebsiteFinder
             progressBar.Value = 15;
             progressRing.IsActive = true;
 
-            await Task.Run(() => ActionsManager.StartProcess());
+            bool headless = !showWindowCheckBox.IsChecked.Value;
+
+            await Task.Run(() => ActionsManager.StartProcess(true, headless));
             websitesDataGrid.ItemsSource = ActionsManager.Websites;
 
             // progress
@@ -160,6 +163,15 @@ namespace WebsiteFinder
             {
                 File.WriteAllLines(saveFileDialog.FileName, lines.ToArray());
             }
+        }
+
+        private void madeBy_Click(object sender, RoutedEventArgs e)
+        {
+            var uri = "https://www.fiverr.com/proprogrammer_";
+            var psi = new ProcessStartInfo();
+            psi.UseShellExecute = true;
+            psi.FileName = uri;
+            Process.Start(psi);
         }
     }
 }

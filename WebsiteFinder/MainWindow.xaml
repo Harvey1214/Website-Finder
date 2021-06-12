@@ -4,9 +4,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WebsiteFinder"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:WebsiteFinder" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 mc:Ignorable="d"
         Title="Website Finder" Height="549" Width="527" ResizeMode="CanMinimize" Closing="MetroWindow_Closing">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="madeBy" Click="madeBy_Click" Content="Made by ProProgrammer_ © 2021">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="4 0 0 0"
+                             VerticalAlignment="Center"
+                             Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Button x:Name="startButton" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Search" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Click="startButton_Click" Width="158"/>
         <DataGrid IsReadOnly="True" x:Name="websitesDataGrid" Margin="10,107,10,182"/>
@@ -23,6 +38,7 @@
         <PasswordBox mah:TextBoxHelper.Watermark="Password" x:Name="passwordBox" HorizontalAlignment="Left" Margin="264,407,0,0" VerticalAlignment="Top" Width="246"/>
         <Button Style="{StaticResource MahApps.Styles.Button.Flat}" x:Name="exportToCSV" Content="Export to CSV" HorizontalAlignment="Left" Margin="414,356,0,0" VerticalAlignment="Top" Click="exportToCSV_Click"/>
         <Button x:Name="startFromMailingList" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Mailing List" HorizontalAlignment="Left" Margin="173,41,0,0" VerticalAlignment="Top" Width="168" Click="startFromMailingList_Click"/>
+        <CheckBox x:Name="showWindowCheckBox" Content="Show Browser Window" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </mah:MetroWindow>
