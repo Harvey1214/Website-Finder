@@ -62,6 +62,25 @@ namespace WebsiteFinder
             LoadContactInfo();
         }
 
+        private void startFromMailingList_Click(object sender, RoutedEventArgs e)
+        {
+            websitesDataGrid.ItemsSource = null;
+
+            // progress
+            progressRing.IsActive = true;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ActionsManager.Websites = DomainsFromFile.Get(openFileDialog.FileName);
+            }
+
+            // progress
+            progressBar.Value = 15;
+
+            LoadContactInfo();
+        }
+
         private async void LoadContactInfo()
         {
             await Task.Run(() => new ContactInfoFinder().GetEmails(ActionsManager.Websites));
@@ -129,7 +148,7 @@ namespace WebsiteFinder
             foreach (Website website in ActionsManager.Websites)
             {
                 string line = $"{website.Link},{website.ConcatenatedEmails}";
-                lines.Append(line);
+                lines.Add(line);
             }
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();

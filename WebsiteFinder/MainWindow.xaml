@@ -8,11 +8,11 @@
         mc:Ignorable="d"
         Title="Website Finder" Height="549" Width="527" ResizeMode="CanMinimize" Closing="MetroWindow_Closing">
     <Grid>
-        <Button x:Name="startButton" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Start" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Click="startButton_Click" Width="254"/>
+        <Button x:Name="startButton" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Search" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Click="startButton_Click" Width="158"/>
         <DataGrid IsReadOnly="True" x:Name="websitesDataGrid" Margin="10,107,10,182"/>
         <TextBox mah:TextBoxHelper.Watermark="Keywords (space separated)" x:Name="keywordsTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="379"/>
-        <TextBox mah:TextBoxHelper.Watermark="Min Age" x:Name="minDateTextBox" HorizontalAlignment="Left" Margin="269,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox mah:TextBoxHelper.Watermark="Max Age" x:Name="maxDateTextBox" HorizontalAlignment="Left" Margin="394,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123"/>
+        <TextBox mah:TextBoxHelper.Watermark="Min Age" x:Name="minDateTextBox" HorizontalAlignment="Left" Margin="346,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
+        <TextBox mah:TextBoxHelper.Watermark="Max Age" x:Name="maxDateTextBox" HorizontalAlignment="Left" Margin="434,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83"/>
         <mah:NumericUpDown TextAlignment="Left" mah:TextBoxHelper.Watermark="Pages" x:Name="pagesNumericUpDown" HorizontalAlignment="Left" Margin="394,10,0,0" VerticalAlignment="Top" Width="123"/>
         <mah:MetroProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="27" Margin="0,75,0,0" VerticalAlignment="Top" Width="507"/>
         <mah:ProgressRing x:Name="progressRing" IsActive="False" HorizontalAlignment="Left" Margin="485,72,0,0" VerticalAlignment="Top" Height="32" Width="32"/>
@@ -22,6 +22,7 @@
         <TextBox mah:TextBoxHelper.Watermark="Gmail Address" x:Name="emailTextBox" HorizontalAlignment="Left" Margin="4,407,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <PasswordBox mah:TextBoxHelper.Watermark="Password" x:Name="passwordBox" HorizontalAlignment="Left" Margin="264,407,0,0" VerticalAlignment="Top" Width="246"/>
         <Button Style="{StaticResource MahApps.Styles.Button.Flat}" x:Name="exportToCSV" Content="Export to CSV" HorizontalAlignment="Left" Margin="414,356,0,0" VerticalAlignment="Top" Click="exportToCSV_Click"/>
+        <Button x:Name="startFromMailingList" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Mailing List" HorizontalAlignment="Left" Margin="173,41,0,0" VerticalAlignment="Top" Width="168" Click="startFromMailingList_Click"/>
 
     </Grid>
 </mah:MetroWindow>
