@@ -48,6 +48,7 @@ namespace WebsiteFinder
             ActionsManager.MaxDate = maxDateTextBox.Text;
 
             ActionsManager.Pages = Convert.ToInt32(pagesNumericUpDown.Value);
+            ActionsManager.MinPages = Convert.ToInt32(minPagesNumericUpDown.Value);
             if (ActionsManager.Pages == 0) ActionsManager.Pages = 1;
 
             // progress
@@ -86,7 +87,13 @@ namespace WebsiteFinder
 
         private async void LoadContactInfo()
         {
-            await Task.Run(() => new ContactInfoFinder().GetEmails(ActionsManager.Websites));
+            ContactInfoFinder contactFinder = new() 
+            { 
+                FilterByFooterDate = filterByFooterDateCheckBox.IsChecked.Value,
+                MinDate = minDateTextBox.Text,
+                MaxDate = maxDateTextBox.Text
+            };
+            ActionsManager.Websites = await Task.Run(() => contactFinder.GetEmails(ActionsManager.Websites));
 
             websitesDataGrid.ItemsSource = null;
             websitesDataGrid.ItemsSource = ActionsManager.Websites;

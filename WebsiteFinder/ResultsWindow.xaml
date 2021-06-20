@@ -6,9 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebsiteFinder"
         mc:Ignorable="d"
-        Title="ResultsWindow" Height="484" Width="483">
+        Title="Results" Height="484" Width="483">
     <Grid>
-        <DataGrid x:Name="resultsDataGrid"/>
+        <DataGrid IsReadOnly="True" x:Name="resultsDataGrid"/>
 
     </Grid>
 </mah:MetroWindow>

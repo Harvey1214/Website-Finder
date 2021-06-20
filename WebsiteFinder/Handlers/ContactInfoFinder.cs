@@ -10,38 +10,63 @@ namespace WebsiteFinder
 {
     class ContactInfoFinder
     {
+        public bool FilterByFooterDate { get; init; }
+        public string MinDate { get; init; }
+        public string MaxDate { get; init; }
+
         public List<Website> GetEmails(List<Website> websites)
         {
+            List<Website> results = new();
+
             foreach (Website website in websites)
             {
                 string html = "";
-                using (MyWebClient client = new())
+                using MyWebClient client = new();
+
+                try
                 {
-                    try
-                    {
-                        html = client.DownloadString(website.Link);
-                        try { html += client.DownloadString($"{website.Link}/contact"); } catch { }
-                        try { html += client.DownloadString($"{website.Link}/support"); } catch { }
+                    html = client.DownloadString(website.Link);
+                    try { html += client.DownloadString($"{website.Link}/contact"); } catch { }
+                    try { html += client.DownloadString($"{website.Link}/support"); } catch { }
 
-                        // finding a contact email using regex
+                    // finding a contact email using regex
+                    {
+                        MatchCollection matches = Regex.Matches(html, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+                        foreach (Match match in matches)
                         {
-                            MatchCollection matches = Regex.Matches(html, "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
-                            foreach (Match match in matches)
-                            {
-                                website.Emails.Add(match.Value);
-                            }
-
-                            website.Emails = RemoveDuplicates(website.Emails);
+                            website.Emails.Add(match.Value);
                         }
-                    }
-                    catch
-                    {
 
+                        website.Emails = RemoveDuplicates(website.Emails);
                     }
+
+                    // finding footer date
+                    {
+                        string footerDate = Regex.Match(html, @"([©®™℠] ?\d\d\d\d)|(\d\d\d\d ?[©®™℠])").Value;
+
+                        int date = 0;
+                        bool success = Int32.TryParse(Regex.Match(footerDate, @"\d\d\d\d").Value, out date);
+
+                        if (success) website.FooterDate = date;
+                    }
+
+                    if (FilterByFooterDate)
+                    {
+                        int minDate = Convert.ToInt32(MinDate);
+                        int maxDate = Convert.ToInt32(MaxDate);
+                        if (website.FooterDate < minDate && minDate != 0) continue;
+                        if (website.FooterDate > maxDate && maxDate != 0) continue;
+                    }
+
+                    results.Add(website);
+                }
+                catch
+                {
+
                 }
             }
 
-            return websites;
+            return results;
         }
 
         private List<string> RemoveDuplicates(List<string> list)

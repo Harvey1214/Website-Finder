@@ -43,7 +43,6 @@ C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Release\net5.0-windo
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Release\net5.0-windows\WebDriver.Support.dll
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Release\net5.0-windows\WebDriver.dll
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Release\net5.0-windows\de\MahApps.Metro.resources.dll
-C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\WebsiteFinder.csprojAssemblyReference.cache
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\MainWindow.g.cs
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\ResultsWindow.g.cs
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\App.g.cs
@@ -62,3 +61,4 @@ C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windo
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\ref\WebsiteFinder.dll
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\WebsiteFinder.pdb
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\WebsiteFinder.genruntimeconfig.cache
+C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Release\net5.0-windows\WebsiteFinder.csproj.AssemblyReference.cache

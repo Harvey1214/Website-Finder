@@ -1,4 +1,3 @@
-C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\WebsiteFinder.csprojAssemblyReference.cache
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\MainWindow.g.cs
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\App.g.cs
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\WebsiteFinder_MarkupCompile.cache
@@ -62,3 +61,4 @@ C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\bin\Debug\net5.0-windows
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\App.baml
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\ResultsWindow.g.cs
 C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\ResultsWindow.baml
+C:\Users\mikuh\source\repos\WebsiteFinder\WebsiteFinder\obj\Debug\net5.0-windows\WebsiteFinder.csproj.AssemblyReference.cache

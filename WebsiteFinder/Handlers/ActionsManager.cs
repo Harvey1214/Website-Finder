@@ -19,6 +19,7 @@ namespace WebsiteFinder
 
         public List<Website> Websites { get; set; } = new List<Website>();
 
+        public int MinPages { get; set; }
         public int Pages { get; set; } = 4;
 
         public void StartProcess(bool maximized = true, bool headless = false)
@@ -33,7 +34,7 @@ namespace WebsiteFinder
             // search using keywords
             {
                 bot.GoToURL("https://www.google.com");
-                bot.ClickElement(By.Id("L2AGLb")); // "Agree with ToS" button
+                try { bot.ClickElement(By.Id("L2AGLb")); } catch { } // "Agree with ToS" button
                 // type keywords
                 By byForSearchAndConfirm;
                 try
@@ -63,34 +64,53 @@ namespace WebsiteFinder
                     }
                 }
                 // confirm
-                bot.SendKeysToElement(byForSearchAndConfirm, Keys.Enter);
+                try { bot.SendKeysToElement(byForSearchAndConfirm, Keys.Enter); } catch { }
             }
 
             // filter by date
             {
-                bot.ClickElement(By.Id("hdtb-tls")); // "Tools" button
-                Thread.Sleep(250);
-                bot.ClickElement(By.XPath("//*[@class=\"hdtb-mn-hd\"]")); // "Any time" dropdown
+                try
+                {
+                    bot.ClickElement(By.Id("hdtb-tls")); // "Tools" button
+                    Thread.Sleep(250);
+                    bot.ClickElement(By.XPath("//*[@class=\"hdtb-mn-hd\"]")); // "Any time" dropdown
 
-                var timeDropdownItems = bot.driver.FindElements(By.XPath("//*[contains(@class, 'znKVS') and contains(@class, 'tnhqA')]")); // get all items from the time filter dropdown
-                timeDropdownItems.Last().Click(); // click "Custom range..." item in the dropdown
+                    var timeDropdownItems = bot.driver.FindElements(By.XPath("//*[contains(@class, 'znKVS') and contains(@class, 'tnhqA')]")); // get all items from the time filter dropdown
+                    timeDropdownItems.Last().Click(); // click "Custom range..." item in the dropdown
+                }
+                catch
+                {
 
-                bot.SendKeysToElement(By.Id("OouJcb"), MinDate);
-                bot.SendKeysToElement(By.Id("rzG2be"), MaxDate);
-                bot.ClickElement(By.XPath("/html/body/div[7]/div/div[4]/div[2]/div[2]/div[3]/form/g-button")); // "Go" button
+                }
+
+                try { bot.SendKeysToElement(By.Id("OouJcb"), MinDate); } catch { }
+                try { bot.SendKeysToElement(By.Id("rzG2be"), MaxDate); } catch { }
+                try { bot.ClickElement(By.XPath("/html/body/div[7]/div/div[4]/div[2]/div[2]/div[3]/form/g-button")); } catch { } // "Go" button
             }
 
             // read URLs
             {
                 for (int i = 0; i < Pages; i++)
                 {
-                    string html = bot.GetElementInnerHTML(By.Id("center_col"));
-                    MatchCollection matches = Regex.Matches(html, @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b");
-                    foreach (Match match in matches)
+                    // reading search results
+                    if (i + 1 >= MinPages) // if the page isn't in the specified range, skip it
                     {
-                        Websites.Add(new() { Link = match.Value });
+                        try
+                        {
+                            string html = bot.GetElementInnerHTML(By.Id("center_col"));
+                            MatchCollection matches = Regex.Matches(html, @"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b");
+                            foreach (Match match in matches)
+                            {
+                                Websites.Add(new() { Link = match.Value, Page = i + 1 });
+                            }
+                        }
+                        catch
+                        {
+
+                        }
                     }
 
+                    // go to next page of search results
                     try
                     {
                         By nextPageButton = By.XPath("//*[contains(@style, 'display:block;margin-left:53px')]");
@@ -117,6 +137,7 @@ namespace WebsiteFinder
         private void RemoveDuplicateWebsites()
         {
             List<string> links = new List<string>();
+            List<int> pages = new List<int>();
             foreach (Website website in Websites)
             {
                 bool duplicate = false;
@@ -130,13 +151,15 @@ namespace WebsiteFinder
                 }
 
                 if (duplicate) continue;
+
                 links.Add(website.Link);
+                pages.Add(website.Page);
             }
 
             Websites.Clear();
-            foreach (string link in links)
+            for (int i = 0; i < links.Count; i++)
             {
-                Websites.Add(new() { Link = link });
+                Websites.Add(new() { Link = links[i], Page = pages[i] });
             }
         }
 

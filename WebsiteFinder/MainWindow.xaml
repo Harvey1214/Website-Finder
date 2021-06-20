@@ -25,10 +25,10 @@
     <Grid>
         <Button x:Name="startButton" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Search" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Click="startButton_Click" Width="158"/>
         <DataGrid IsReadOnly="True" x:Name="websitesDataGrid" Margin="10,107,10,182"/>
-        <TextBox mah:TextBoxHelper.Watermark="Keywords (space separated)" x:Name="keywordsTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="379"/>
+        <TextBox mah:TextBoxHelper.Watermark="Keywords (space separated)" x:Name="keywordsTextBox" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289"/>
         <TextBox mah:TextBoxHelper.Watermark="Min Age" x:Name="minDateTextBox" HorizontalAlignment="Left" Margin="346,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
         <TextBox mah:TextBoxHelper.Watermark="Max Age" x:Name="maxDateTextBox" HorizontalAlignment="Left" Margin="434,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83"/>
-        <mah:NumericUpDown TextAlignment="Left" mah:TextBoxHelper.Watermark="Pages" x:Name="pagesNumericUpDown" HorizontalAlignment="Left" Margin="394,10,0,0" VerticalAlignment="Top" Width="123"/>
+        <mah:NumericUpDown TextAlignment="Left" mah:TextBoxHelper.Watermark="Pages" x:Name="pagesNumericUpDown" HorizontalAlignment="Left" Margin="427,10,0,0" VerticalAlignment="Top" Width="90"/>
         <mah:MetroProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="27" Margin="0,75,0,0" VerticalAlignment="Top" Width="507"/>
         <mah:ProgressRing x:Name="progressRing" IsActive="False" HorizontalAlignment="Left" Margin="485,72,0,0" VerticalAlignment="Top" Height="32" Width="32"/>
         <TextBox mah:TextBoxHelper.Watermark="Subject" x:Name="subjectTextBox" HorizontalAlignment="Left" Margin="4,438,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
@@ -39,6 +39,8 @@
         <Button Style="{StaticResource MahApps.Styles.Button.Flat}" x:Name="exportToCSV" Content="Export to CSV" HorizontalAlignment="Left" Margin="414,356,0,0" VerticalAlignment="Top" Click="exportToCSV_Click"/>
         <Button x:Name="startFromMailingList" Style="{StaticResource MahApps.Styles.Button.Flat}" Content="Mailing List" HorizontalAlignment="Left" Margin="173,41,0,0" VerticalAlignment="Top" Width="168" Click="startFromMailingList_Click"/>
         <CheckBox x:Name="showWindowCheckBox" Content="Show Browser Window" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top"/>
+        <mah:NumericUpDown TextAlignment="Left" mah:TextBoxHelper.Watermark="From Page" x:Name="minPagesNumericUpDown" HorizontalAlignment="Left" Margin="304,10,0,0" VerticalAlignment="Top" Width="118"/>
+        <CheckBox x:Name="filterByFooterDateCheckBox" Content="Filter by Footer Date (may eradicate a lot of results)" HorizontalAlignment="Left" Margin="11,384,0,0" VerticalAlignment="Top" Width="313"/>
 
     </Grid>
 </mah:MetroWindow>

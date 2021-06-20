@@ -25,6 +25,23 @@ namespace WebsiteFinder
                 results.Add(new() { Link = websiteURL });
             }
 
+            // finding websites that contain usual email providers
+            List<Website> websitesToRemove = new();
+            foreach (Website website in results)
+            {
+                string link = website.Link.ToLower();
+                if (link.Contains("yahoo") || link.Contains("gmail") || link.Contains("outlook") || link.Contains("aol"))
+                {
+                    websitesToRemove.Add(website);
+                }
+            }
+
+            // removing websites that have a usual email provider
+            foreach (Website websiteToRemove in websitesToRemove)
+            {
+                results.Remove(websiteToRemove);
+            }
+
             return results;
         }
     }
