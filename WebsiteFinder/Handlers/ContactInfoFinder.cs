@@ -44,10 +44,26 @@ namespace WebsiteFinder
                     {
                         string footerDate = Regex.Match(html, @"([©®™℠] ?\d\d\d\d)|(\d\d\d\d ?[©®™℠])").Value;
 
-                        int date = 0;
-                        bool success = Int32.TryParse(Regex.Match(footerDate, @"\d\d\d\d").Value, out date);
+                        if (footerDate.Length == 0 || footerDate == "0")
+                        {
+                            MatchCollection matches = Regex.Matches(html, @"\d\d\d\d");
+                            foreach (Match match in matches)
+                            {
+                                int year = Int32.Parse(match.Value);
+                                if (year > 1970 && year < DateTime.Now.Year + 5)
+                                {
+                                    website.FooterDate = year;
+                                    break;
+                                }
+                            } 
+                        }
+                        else
+                        {
+                            int date = 0;
+                            bool success = Int32.TryParse(Regex.Match(footerDate, @"\d\d\d\d").Value, out date);
 
-                        if (success) website.FooterDate = date;
+                            if (success) website.FooterDate = date;
+                        }
                     }
 
                     if (FilterByFooterDate)

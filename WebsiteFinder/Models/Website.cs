@@ -27,5 +27,17 @@ namespace WebsiteFinder
         public List<string> Emails { get; set; } = new List<string>();
         public int Page { get; set; }
         public int FooterDate { get; set; }
+
+        public string GetEmailsDividedBySemicolons()
+        {
+            string result = "";
+
+            foreach (string email in Emails)
+            {
+                result += $"{email};";
+            }
+
+            return result;
+        }
     }
 }

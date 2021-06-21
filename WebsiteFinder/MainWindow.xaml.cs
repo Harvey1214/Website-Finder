@@ -153,11 +153,11 @@ namespace WebsiteFinder
         {
             List<string> lines = new();
 
-            lines.Add("website link, contact email"); // header line
+            lines.Add("website link, contact email, page, footer date"); // header line
 
             foreach (Website website in ActionsManager.Websites)
             {
-                string line = $"{website.Link},{website.ConcatenatedEmails}";
+                string line = $"{website.Link},{website.GetEmailsDividedBySemicolons()},{website.Page},{website.FooterDate}";
                 lines.Add(line);
             }
 
