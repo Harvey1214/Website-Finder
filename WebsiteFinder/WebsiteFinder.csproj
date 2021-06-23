@@ -4,7 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Authors>ProProgrammer_</Authors>
+    <Company>PROGameStudios s.r.o.</Company>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile></PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="EULA - WebsiteFinder.html" />
+    <None Remove="EULA - WebsiteFinder.html" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.5" />
